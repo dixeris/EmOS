@@ -3,7 +3,6 @@
 #ifndef LIB_STDIO_H
 #define LIB_STDIO_H
 
-#define NULL 0
 
 typedef enum utoa_t {
   utoa_dec = 10,

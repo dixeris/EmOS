@@ -81,14 +81,14 @@ uint32_t utoa(char *buf, uint32_t val, utoa_t base)
   int32_t idx = 0;
   char tmp[11];
 
-  do
+  do //만약 val 값이 0 이라면 이 루프는 실행조차 되지 않는 것을 방지하기 위해서 do while 문을 사용함.
   {
-  uint32_t t = val % (uint32_t)base;   //extract first digit 
+  uint32_t t = val % (uint32_t)base;   //extract first digit, if the base is 16, it is possible to extract the number over 10.
   if(t >= 10) {
-    t = t - 10 + 'A' - '0';
+    t = t - 10 + 'A' - '0'; // 12 - 10 + 65 -> 67 in ascii code, it is converted to letter "C" which is hex, -0 for skipping next step 
   }
 
-  tmp[idx] = (t + '0');
+  tmp[idx] = (t + '0'); //if the extracted number is lower than 10, it should be converted to decimal letter which is represented from number 48('0').
   val /= base; //jump into next digit 
   idx++;
   } while(val);
