@@ -6,7 +6,7 @@
 #include "task.h"	//Task contexts 
 
 //Init, Create
-KernelTcb_t	sTask_list[MAX_TASK_NUM];
+ KernelTcb_t	sTask_list[MAX_TASK_NUM];
 static uint32_t		sAllocated_tcb_index;
 
 //Scheduler Algorithm
@@ -18,8 +18,9 @@ static KernelTcb_t	*Scheduler_round_robin_algorithm(void);
  KernelTcb_t 	*sNext_tcb;
 void	Kernel_task_scheudler(void);
 
+
 //Kernel Initialization for task
-uint32_t Kernel_task_init(void) {
+void Kernel_task_init(void) {
   sAllocated_tcb_index = 0;
   sCurrent_tcb_index = 0;
   
@@ -32,7 +33,6 @@ uint32_t Kernel_task_init(void) {
     ctx->pc = 0;
     ctx->spsr = ARM_MODE_BIT_SYS;
   }
-  return sAllocated_tcb_index;
 }
 
 //create task, sAllocated_tcb_index is number of the created task + 1
