@@ -68,3 +68,7 @@ void Kernel_task_start(void) { //Starting from sTask_list[0] to avoid storing Ke
   sNext_tcb = &sTask_list[sCurrent_tcb_index];
   Restore_context();  
 }
+
+uint32_t Kernel_task_get_current_id(void) {
+  return sCurrent_tcb_index;
+}

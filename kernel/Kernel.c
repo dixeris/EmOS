@@ -66,3 +66,32 @@ uint32_t Kernel_recv_msg(KernelMsgQ_t Qname, void* out_data, uint32_t count) {
   }
   return count;
 }
+
+void Kernel_lock_sem(void) {
+  while(Kernel_sem_test() == false) { //locked by other process
+    Kernel_yield();
+  }
+}
+
+void Kernel_unlock_sem(void) {
+  Kernel_sem_release();
+}
+
+void Kernel_lock_mutex(void) {
+  uint32_t owner = Kernel_task_get_current_id();
+  while(true) {
+  if(false == Kernel_mutex_lock(owner)) {
+    Kernel_yield();
+  }
+  else {
+    break;
+  }
+  }
+}
+
+void Kernel_unlock_mutex(void) {
+  uint32_t owner = Kernel_task_get_current_id();
+  if(false == Kernel_mutex_unlock(owner)) {
+    Kernel_yield();
+  }  
+}
